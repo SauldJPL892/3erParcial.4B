@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="footer.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<!-- PONER LOS 7 LINKS-->
+	
+	<title>Peliculas</title>
+</head>
+<body>
+<title>Inicio</title>
+</head>
+<body>
+
+	<style>
+		img{
+			position: center;
+			height: 700px;
+			width: 740px;
+		}
+		body{
+			background-image: linear-gradient(to right, rgb(0, 0, 0), rgb(255, 0, 0),rgb(0, 0, 0));
+		}
+		.container{
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 40px;
+		}
+		h1{
+			text-align: center;
+			margin-top: 50px;
+			margin-bottom: 30px;
+			color: rgb(255, 255, 255);
+		}
+		form{
+			display: flex;
+			justify-content: center;
+			margin-bottom: 30px;
+		}
+		input[type="text"]{
+			font-size: 12px;
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			width: 50%;
+
+		}
+		input[type="submit"]{
+			font-size: 12px;
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			margin-left: 10px;
+			cursor: pointer;
+		}
+		input[type="submit"]:hover{
+			background-color: #3D348B;
+			color: azure;
+		}
+		.green{
+			color: rgb(0, 0, 0);
+			background-color: green;
+		}
+		.orange{
+			color: rgb(0, 0, 0);
+			background-color: orange;
+		}
+		.red{
+			color: rgb(0, 0, 0);
+			background-color: red;
+		}
+		a{
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.555);
+		}
+		ul li{
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        ul li{
+            cursor: pointer;
+            color: #3D348B;
+        }
+		h3{
+			color: aliceblue;
+		}
+		.overview{
+			color: aliceblue;
+		}
+		hr{
+			height: 5px; 
+            background-color: rgb(0, 0, 0); 
+            border: none; 
+            margin: 10px 0;
+		}
+	</style>
+	<div style="margin: 24px;">
+		<nav class="navbar navbar-light" style="background-color: rgb(3, 3, 32);">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li class="active"> 
+					<a href="index.html">Inicio</a>
+					</li>
+					<li> 
+					<a href="menu.html">Menu</a>
+					</li>
+					<li>
+					<a href="formulario.html">Formulario</a>
+					</li>
+					<li>
+					<a href="resultado.html">Resultado</a>
+					</li>
+					<li>
+					<a href="contacto.html">Contacto</a>
+					</li>
+                    <li>
+                    <a href="apimovie.html">Peliculas</a>
+                    </li>
+                    <li>
+                    <a href="calculadorafisica.html">Fisica</a>
+                    </li>
+                    <li>
+                    <a href="calculadora.html">Calculadora</a>
+                    </li>
+				    <li>
+					<a href="perfil.html">Perfil</a>
+				    </li>
+				    <li>
+					<a href="cuestionario.html">Cuestionario</a>
+				    </li>
+                </ul>
+			</div>
+		</nav>
+	</div>
+    
+
+	<div class="container">
+	<h1>Mi Pagina de Peliculas</h1>
+    <form id="form">
+		<input type="text" id="search" placeholder="Busca aqui tu pelicula" />
+		<input type="submit" value="search" />
+	</form>
+	<section id="main" class="movies"></section>
+	
+</div>
+	<script>
+		//esta lineaz se define la URL de la api para tener las imagenes de las peliculas
+
+		 const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=1';//se pueden buscar tambien en chrome
+
+		//Esta linea define la UR de la api para obtener las imagenes
+
+		const IMG_PATH = 'https://image.tmdb.org/t/p/w1280';
+
+		//Esta linea define la UR de la api para buscar las peliculas
+		const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&query="'; //classroom esta el link
+
+		//en esta 3 lineas se obtienen los elementos HTML con los que interactua el codigo
+
+		const main = document.getElementById('main');
+		const form = document.getElementById('form');
+		const search = document.getElementById('search');
+
+		//Esta linea llama a la funcion getMovie para obtener la linea depeliculas iniciales
+		getMovies(API_URL);
+
+		//Esta funcion utiliza fetch para obtener la informacion de la API y luego utiliza "await" para esperar la info de la pelicula para crear los elemntos y luego agraga el DOM.
+		async function getMovies(url){
+			const res = await fetch(url);
+			const data = await res.json();
+			showMovies(data.results);
+		}
+
+		//ets safuncion cre los elemnetos HTML para mostrar cada cada pelicula en la lista,utiliza la info de la pelicula para crear los elementos y luego los agrega al DOM (modelo de objetos de documentos,que es una interfaz de programacion para los documentos HTML)
+		//ESta funcion crea los elementos HTML para m,ostrar cada una de las peliculas en la lista.Utiliza la informacion de la pelicula para crear los elementos y luego los agrega al DOM
+		function showMovies(movies){
+			main.innerHTML='';
+			movies.forEach((movie) => {
+			const {title, poster_path, vote_average, overview, release_date} = movie;
+			const movieEl = document.createElement('div');
+
+				movieEl.classList.add('movie');
+				movieEl.innerHTML = `
+			    <img src="${IMG_PATH + poster_path}" alt="${title}">
+				<div class = "movie-info">
+				<h3>${title}</h3>
+				<span class = "${getClassByRate(vote_average)}">${vote_average}</span>
+				</div>
+				<div class="overview">
+				<h3>Overview</h3>
+				${overview}
+				<h3>Release Date</h3>
+				${release_date}</div>
+				<hr>
+				`
+				main.appendChild(movieEl);
+			});
+		};
+		//Esta funcion devuelve 
+		function getClassByRate(vote){
+			if(vote >= 8){
+				return 'green'
+			} else if (vote >= 5) {
+				return 'orange'
+			} else {
+				return 'red'
+
+			}
+		}
+
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+				const searchTerm = search.value;
+				if(searchTerm && searchTerm !=''){
+					getMovies(SEARCH_API + searchTerm)
+					search.value = ''
+				} else {
+					window.location.reload();
+				}
+		})
+
+	</script>
+
+	<footer>
+        <div class="containerf">
+            <div class="footer-content">
+                <div class="footer-section about">
+                <h2><b>Contactame:</b></h2>
+                <p style="font-family: 'Times New Roman', Times, serif;color: rgb(234, 255, 0) ;">Si estas interesado en contactarme, puedes hacerlo a traves de cualquiera de las siguientes redes sociales:</p>
+                <div class="contact-links">
+                    <a href="http://www.facebook.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-facebook"></i></a>
+                    <a href="http://www.instagram.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-instagram"></i></a>
+                    <a href="http://www.twitter.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-twitter"></i></a>
+                    <a href="http://www.snapchat.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-snapchat"></i></a>
+                    <a href="http://www.linkedin.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-discord"></i></a>          
+                </div>
+            </div>
+        </div>
+	<script>
+
+		const socialnetworks = document.querySelectorAll('.contact-link a');
+		socialnetworks.forEach(link => {
+			link.addEventListener('click', e => {
+				e.preventDefault();
+				window.open(link.href, '_blank');
+			});
+		});
+	</script>
+	</footer>
+</body>
+</html>

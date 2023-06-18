@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="footer.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<title>Inicio</title>
+</head>
+<body>
+	<div style="margin: 24px;">
+		<nav class="navbar navbar-light" style="background-color: rgb(3, 3, 32);">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li class="active"> 
+					<a href="index.html">Inicio</a>
+					</li>
+					<li> 
+					<a href="menu.html">Menu</a>
+					</li>
+					<li>
+					<a href="formulario.html">Formulario</a>
+					</li>
+					<li>
+					<a href="resultado.html">Resultado</a>
+					</li>
+					<li>
+					<a href="contacto.html">Contacto</a>
+					</li>
+                    <li>
+                    <a href="apimovie.html">Peliculas</a>
+                    </li>
+                    <li>
+                    <a href="calculadorafisica.html">Fisica</a>
+                    </li>
+                    <li>
+                    <a href="calculadora.html">Calculadora</a>
+                    </li>
+				    <li>
+					<a href="perfil.html">Perfil</a>
+				    </li>
+				    <li>
+					<a href="cuestionario.html">Cuestionario</a>
+				    </li>
+        </ul>
+			</div>
+		</nav>
+	</div>
+  <div class="jumbotron jumbotron-fluid" style="background-color: rgb(144, 229, 33);">
+      <div class="container">
+        <h1 class="display-4" style="color: rgb(4, 53, 4);">Calculadora Fisica</h1>
+        <p class="lead">Fundamentación Teórica La Física es la ciencia que estudia las propiedades de la materia, radiación y energía en todas sus formas, con base en el Método Científico, utilizando un lenguaje matemático. <br> Las estructuras observables microscópicas, mesoscópicas y macroscópicas. Provee la infraestructura básica necesaria para el entendimiento de las otras ciencias, por ejemplo las químicas, las biológicas y las ambientales.
+         <br> El Profesional en Física debe dominar los conocimientos básicos de las siguientes ramas: electromagnetismo mecánica teórica mecánica cuántica técnicas experimentales de la física métodos matemáticos de la física </p>
+        </div>
+      </div>
+      <form id="formulario">
+        <label for="distancia">DISTANCIA:</label>
+        <input type="text" id="distancia" name="distancia">
+        <select id="distanciaUnidad">
+            <option value="metros">metros</option>
+            <option value="pies">pies</option>
+        </select>
+        <br>
+        <label for="tiempo">TIEMPO:</label>
+        <input type="text" id="tiempo" name="tiempo">
+        <select id="tiempoUnidad">
+            <option value="segundos">segundos</option>
+            <option value="horas">horas</option>
+            </select>
+            <br>
+            <label for="velocidadUnidad">UNIDADES DE VELOCIDAD:</label>
+            <select id="velocidadUnidad">
+                <option value="metros_por_segundo">m/s</option>
+                <option value="pies_por_segundo">ft/s</option>
+                <option value="kilometros_por_hora">km/hr</option>      
+                <option value="millas_por_hora">mph</option>    
+            </select>
+            <br>
+            <br>
+            <button type="button" class="btn btn-warning" value="calcular" onclick="calcular()">CALCULAR</button>
+      </form>
+      <br>
+      <p id="resultado"></p>
+      <p style="color: red; background-color: yellow;">VELOCIDAD: <span id="velocidad"></span></p>
+      <p style="color: red; background-color: yellow;">ACELERACION: <span id="aceleracion"></span></p>
+      <p style="color: red; background-color: yellow;">RAPIDEZ: <span id="rapidez"></span></p>
+        <script>
+      function calcular(){
+          const distancia=parseFloat(document.getElementById('distancia').value);
+          const tiempo = parseFloat(document.getElementById('tiempo').value);
+          
+          const distanciaUnidad = document.getElementById('distanciaUnidad').value;
+           const tiempoUnidad = document.getElementById('tiempoUnidad').value;
+           const velocidadUnidad = document.getElementById('velocidadUnidad').value;
+
+
+            let distanciaSI = 0; 
+            let tiempoSI = 0; 
+
+            
+            if (distanciaUnidad === 'metros') {
+              distanciaSI = distancia;
+            }else if (distanciaUnidad === 'pies') {
+              distanciaSI = distancia / 3.281; 
+            }
+            if (tiempoUnidad=== 'segundos') {
+              tiempoSI = tiempo;
+            }else if (tiempoUnidad === 'horas') {
+              tiempoSI = tiempo * 3600; 
+            }
+
+
+            let velocidad = 0;
+            let aceleracion = 0;
+            let rapidez = 0;
+
+
+            if (velocidadUnidad === 'metros_por_segundo') {
+              velocidad = distanciaSI / tiempoSI;
+              rapidez = velocidad;
+              aceleracion = velocidad / tiempoSI;
+            }else  if (velocidadUnidad === 'pies_por_segundo') {
+              velocidad = (distanciaSI * 3.281 )  / tiempoSI;
+              rapidez = velocidad;
+              aceleracion = velocidad / tiempoSI;
+            }else  if (velocidadUnidad === 'kilometros_por_hora') {
+              velocidad = (distanciaSI / 1000) / (tiempoSI / 3600);
+              rapidez = velocidad;
+              aceleracion = velocidad / (tiempoSI / 3600);
+            }else  if (velocidadUnidad === 'millas_por_hora') {
+              velocidad = (distanciaSI / 1609) / (tiempoSI / 3600);
+              rapidez = velocidad;
+              aceleracion = velocidad / (tiempoSI / 3600);
+      }
+
+      let resultado = '';
+
+
+      document.getElementById('velocidad').textContent = velocidad.toFixed(2) + ' ' + velocidadUnidad; 
+      document.getElementById('aceleracion').textContent = aceleracion.toFixed(2) + ' '+ 'm/s^2';
+      document.getElementById('rapidez').textContent = rapidez.toFixed(2) + ' ' + velocidadUnidad;
+       document.getElementById('resultado').innerHTML = resultado; 
+   }
+    </script>
+    <footer>
+        <div class="containerf">
+            <div class="footer-content">
+                <div class="footer-section about">
+                <h2><b>Contactame:</b></h2>
+                <p style="font-family: 'Times New Roman', Times, serif;color: rgb(234, 255, 0) ;">Si estas interesado en contactarme, puedes hacerlo a traves de cualquiera de las siguientes redes sociales:</p>
+                <div class="contact-links">
+                    <a href="http://www.facebook.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-facebook"></i></a>
+                    <a href="http://www.instagram.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-instagram"></i></a>
+                    <a href="http://www.twitter.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-twitter"></i></a>
+                    <a href="http://www.snapchat.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-snapchat"></i></a>
+                    <a href="http://www.linkedin.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-discord"></i></a>          
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--con esto lo siguiente, hace que los links de la pag se habran mediante JS en una pag nueva-->
+    <script>
+        const socialnetworks = document.querySelectorAll('.contact-links a');
+        socialnetworks.forEach(link =>{
+          link.addEventListener('click',e=>{
+           e.preventDefault();
+           window.open(link.href, '_blank');
+        });
+      });
+    </script>
+
+</body>
+</html>

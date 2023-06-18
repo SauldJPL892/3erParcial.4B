@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="footer.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link href="https://fonts.cdnfonts.com/css/d3-craftism" rel="stylesheet">
+	<title>Inicio</title>
+</head>
+<body>
+    <style>
+        .container{
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 40px;
+		}
+        body{
+            background-image: linear-gradient(to right, rgb(10, 42, 51), rgb(40, 108, 127),rgb(10, 42, 51));
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+        }
+        .quiz-container{
+            outline: red dashed 1px;
+            background-color: #ddff00;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 2px #3D348B;
+            width: 500px;
+            overflow: hidden;
+        }
+        .quiz-header{
+            padding: 2rem;
+        }
+        h2{
+            padding: 1rem;
+            text-align: center;
+            margin: 0;
+        }
+        ul{
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li{
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        ul li label{
+            cursor: pointer;
+            color: #3D348B;
+        }
+        button{
+            background-color: #ff0000;
+            color: #ffffff;
+            border: none;
+            display: block;
+            width: 100%;
+            cursor: pointer;
+            font-size: 25px;
+            font-family: "Times New Roman", Times, serif;
+            padding: 15px;
+        }
+        button:hover{
+            background-color: rgb(66, 56, 3);
+        }
+        button:focus{
+            outline: none;
+            background-color: black;
+        }
+        #question{
+            background-color: #0092b3;
+            color: #000000;
+            font-weight: bold;
+        }
+        a{
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.555);
+}
+ </style>
+	<div style="margin: 24px;">
+		<nav class="navbar navbar-light" style="background-color: rgb(3, 3, 32);">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li class="active"> 
+					<a href="index.html">Inicio</a>
+					</li>
+					<li> 
+					<a href="menu.html">Menu</a>
+					</li>
+					<li>
+					<a href="formulario.html">Formulario</a>
+					</li>
+					<li>
+					<a href="resultado.html">Resultado</a>
+					</li>
+					<li>
+					<a href="footer.html">Contacto</a>
+					</li>
+                    <li>
+                    <a href="apimovie.html">Peliculas</a>
+                    </li>
+                    <li>
+                    <a href="calculadorafisica.html">Fisica</a>
+                    </li>
+                    <li>
+                    <a href="calculadora.html">Calculadora</a>
+                    </li>
+                    <li>
+                    <a href="perfil.html">Perfil</a>
+                    </li>
+				    <li>
+					<a href="cuestionario.html">Cuestionario</a>
+				    </li>
+                </ul>
+			</div>
+		</nav>
+	</div>
+    <div class="container">
+        <div class="quiz-container" id="quiz">
+            <div class="quiz-header">
+                <div class="image-container">
+                    <img src="" alt="Imagen" id="question-image" style="width: 200px; height: 200px;">
+
+                <h2 id="question">Question Text</h2>
+                <ul>
+                    <li>
+                        <input type="radio" name="answer" id="a" class="answer">
+                        <label for="a" id="a_text">Question</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" id="b" class="answer">
+                        <label for="b" id="b_text">Question</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" id="c" class="answer">
+                        <label for="c" id="c_text">Question</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" id="d" class="answer">
+                        <label for="d" id="d_text">Question</label>
+                    </li>
+                </ul>
+            </div>
+            <button id="submit">Siguiente</button>
+        </div>
+    <script>
+        //Este es un arreglo con las preguntas
+        const quizData = [
+        {
+            question: "Quien es el personaje?",
+            image: "https://sm.ign.com/t/ign_latam/screenshot/default/goku-susanoo_7by3.1200.jpg",
+            a: "Freezer",
+            b: "Piccolo",
+            c: "Goku",
+            d: "Vegeta",
+            correct: "c",
+        },
+        {
+            question: "Quien es el personaje?",
+            image: "https://depor.com/resizer/E2lnX0l_x_s1w0-GrI5iNGXCEB0=/1200x900/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/J63W2C53XNGM3JHDMVPF2VMJTA.jpg",
+            a: "Vegeta",
+            b: "Bills",
+            c: "Goku",
+            d: "Krillin",
+            correct: "a",
+        },
+        {
+            question: "Quien es el personaje?",
+            image: "https://www.egames.news/__export/1666290658702/sites/debate/img/2022/10/20/gohan_modo_bestia_dbl_crop1666290615188.jpg_864672741.jpg",
+            a: "Vegeta",
+            b: "Goku",
+            c: "Ten Shinhan",
+            d: "Gohan",
+            correct: "d",
+        },
+        {
+            question: "Quien es el personaje?",
+            image: "https://www.superherodb.com/pictures2/portraits/10/050/52541.jpg?v=1668563935",
+            a: "Picollo",
+            b: "Wills",
+            c: "Goten",
+            d: "Cell",
+            correct: "a",
+        },
+        ];
+        
+        const quiz = document.getElementById('quiz');
+        const answerEls = document.querySelectorAll('.answer');
+        const questionEl = document.getElementById('question');
+        const a_text = document.getElementById('a_text');
+        const b_text = document.getElementById('b_text');
+        const c_text = document.getElementById('c_text');
+        const d_text = document.getElementById('d_text');
+        const submitBtn = document.getElementById('submit');
+
+        let currentQuiz = 0;
+        let score = 0;
+
+        loadQuiz();
+
+        function loadQuiz() {
+            deselectAnswers();
+            const currentQuizData = quizData[currentQuiz];
+            questionEl.innerText = currentQuizData.question;
+            a_text.innerText = currentQuizData.a;
+            b_text.innerText = currentQuizData.b;
+            c_text.innerText = currentQuizData.c;
+            d_text.innerText = currentQuizData.d;
+
+            const questionImage = document.getElementById("question-image");
+            questionImage.src = currentQuizData.image;
+
+        }
+
+        function deselectAnswers() {
+            answerEls.forEach(answerEl => answerEl.checked = false);
+        }
+
+        function getSelected() {
+            let answer;
+
+            answerEls.forEach(answerEl => {
+                if (answerEl.checked) {
+                    answer = answerEl.id;
+                }
+            });
+
+            return answer;
+        }
+
+        submitBtn.addEventListener('click', () => {
+            const answer = getSelected();
+
+            if(answer){
+                if (answer === quizData[currentQuiz].correct) {
+                    score++;
+                }
+
+                currentQuiz++;
+                if(currentQuiz < quizData.length) {
+                    loadQuiz()
+                }else{
+                    quiz.innerHTML = `
+                    <h2>Contestaste ${score}/${quizData.length} de preguntas correctamente</h2>
+                    
+                    <button onclick="location.reload()">Reload</button>
+                    `
+                }
+            }
+        })
+
+    </script>
+</div>
+</div>
+<br>
+    <footer>
+        <div class="containerf">
+            <div class="footer-content">
+                <div class="footer-section about">
+                <h2><b>Contactame:</b></h2>
+                <p style="font-family: 'Times New Roman', Times, serif;color: rgb(234, 255, 0) ;">Si estas interesado en contactarme, puedes hacerlo a traves de cualquiera de las siguientes redes sociales:</p>
+                <div class="contact-links">
+                    <a href="http://www.facebook.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-facebook"></i></a>
+                    <a href="http://www.instagram.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-instagram"></i></a>
+                    <a href="http://www.twitter.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-twitter"></i></a>
+                    <a href="http://www.snapchat.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-snapchat"></i></a>
+                    <a href="http://www.linkedin.com/miperfil" target="_blank" style="color: rgb(0, 153, 255);"><i class="fab fa-discord"></i></a>          
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--con esto lo siguiente, hace que los links de la pag se habran mediante JS en una pag nueva-->
+    <script>
+        const socialnetworks = document.querySelectorAll('.contact-links a');
+        socialnetworks.forEach(link =>{
+          link.addEventListener('click',e=>{
+           e.preventDefault();
+           window.open(link.href, '_blank');
+        });
+      });
+    </script>
+    <h1>jj</h1>
+</body>
+</html>
